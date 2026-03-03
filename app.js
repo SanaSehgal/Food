@@ -1,0 +1,17 @@
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const authRoutes = require('./src/routes/auth.routes'); // Import auth routes
+const foodRoutes = require('./src/routes/food.routes'); // Import food routes
+
+const app = express();
+app.use(cookieParser()); // Middleware to parse cookies
+app.use(express.json());// middleware to parse JSON request bodies
+//dummy api endpoint to test if the backend is working
+app.get('/', (req, res) => {
+  res.send('Backend is running successfully!');
+});
+
+
+app.use('/api/auth', authRoutes); // Use auth routes with the '/api' prefix
+app.use('/api/food', foodRoutes); // Use food routes with the '/api' prefix
+module.exports = app; //  THIS LINE IS CRITICAL
