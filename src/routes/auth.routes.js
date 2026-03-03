@@ -2,7 +2,7 @@ const express = require('express');
 const authController = require('../controllers/auth.controller');
 const router = express.Router();
 
-// Dummy register api 
+// user register api 
 router.post('/user/register', authController.registerUser);
      //(req, res) => {const { username, password } = req.body;
     // the above part will go into controller
