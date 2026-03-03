@@ -1,4 +1,5 @@
 // start server
+require('dotenv').config();
 const app = require('./app');
 const connectDB = require('./src/db/db');
 
