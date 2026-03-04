@@ -2,8 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/variables.css'
 import '../styles/auth.css'
+import axios from 'axios'
 
 const UserRegister = () => {
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const fullname = e.target[0].value
+    const email = e.target[1].value
+    const password = e.target[2].value
+    
+    try {
+        const response = await axios.post('/api/auth/user/register', { fullname, email, password })
+        console.log(response.data) // see success message
+    } catch (err) {
+        console.log(err.response.data) // see exact error message
+    }
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -12,7 +28,7 @@ const UserRegister = () => {
           <p>Sign up as a user to explore meals and order seamlessly.</p>
         </div>
 
-        <form className="auth-form" onSubmit={(e)=>e.preventDefault()}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label>Full name</label>
             <input type="text" placeholder="Jane Doe" />
