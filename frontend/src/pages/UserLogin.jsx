@@ -2,8 +2,26 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/variables.css'
 import '../styles/auth.css'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const UserLogin = () => {
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const email = e.target[0].value
+    const password = e.target[1].value
+
+    try {
+      const response = await axios.post('/api/auth/user/login', { email, password })
+      console.log(response.data) // see success message
+      navigate('/') // ✅ redirect to home after login
+    } catch (err) {
+      console.log(err.response.data) // see exact error message
+    }
+  }
+
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -12,7 +30,7 @@ const UserLogin = () => {
           <p>Sign in to continue to your account.</p>
         </div>
 
-        <form className="auth-form" onSubmit={(e)=>e.preventDefault()}>
+        <form className="auth-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label>Email</label>
             <input type="email" placeholder="you@example.com" />
